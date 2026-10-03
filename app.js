@@ -48,7 +48,7 @@ function home() {
         <p class="eyebrow">Apexagon Global Academy</p>
         <h1 id="home-title">學生作品集</h1>
         <p class="english-title">Student Portfolio</p>
-        <p class="lead">從課堂學習到親手完成的作品，邀請家長一起看見孩子的創作。</p>
+        <p class="lead">AI 原生學院 Portfoilio - 學生作品與學習歷程檔案庫</p>
       </div>
     </section>
     <div class="section-head"><h2>選擇班級</h2><span>請點選所屬課程進入</span></div>
