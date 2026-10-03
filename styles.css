@@ -116,11 +116,13 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
 .content-panel .learning-kicker { margin: 0 0 10px; color: var(--wine); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
 .content-panel.learning-panel h2 { margin-bottom: 12px; font-size: clamp(23px, 3vw, 30px); letter-spacing: -.025em; }
 .content-panel .learning-intro > p:last-child { max-width: 720px; margin: 0; color: #4b686c; font-size: 15px; line-height: 1.8; }
-.learning-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 34px; list-style: none; margin: 28px 0 0; padding: 0; }
-.learning-item { display: grid; grid-template-columns: 39px 1fr; gap: 11px; align-items: start; min-height: 110px; padding: 20px 0 18px; border-top: 1px solid var(--line); }
-.learning-number { color: var(--wine); font-family: Georgia, "Times New Roman", serif; font-size: 25px; line-height: 1.2; }
-.learning-item h3 { margin: 1px 0 6px; color: var(--deep); font-size: 16px; line-height: 1.4; }
-.content-panel .learning-item p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.learning-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; list-style: none; margin: 32px 0 0; padding: 0; }
+.learning-item { position: relative; min-width: 0; padding-right: 4px; }
+.learning-number { display: grid; place-items: center; width: 43px; height: 43px; margin-bottom: 16px; border: 1px solid #dec5bd; border-radius: 50%; background: #fbf4f1; color: var(--wine); font-family: Georgia, "Times New Roman", serif; font-size: 20px; line-height: 1; }
+.learning-item:not(:last-child)::before { content: ""; position: absolute; top: 21px; left: 53px; right: -12px; height: 1px; background: #d9c8c3; }
+.learning-item:not(:last-child)::after { content: ""; position: absolute; top: 17px; right: -12px; width: 8px; height: 8px; border-top: 1.5px solid var(--wine); border-right: 1.5px solid var(--wine); transform: rotate(45deg); }
+.learning-item h3 { margin: 0 0 7px; color: var(--deep); font-size: 15px; line-height: 1.4; }
+.content-panel .learning-item p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
 .works-head { margin: 35px 0 15px; }
 .works-head h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 3px; font-size: 22px; color: var(--deep); }
 .works-head h2::before { content: ""; width: 3px; height: 23px; border-radius: 2px; background: var(--wine); }
@@ -142,6 +144,16 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
 .viewer-bar h1 { font-size: 18px; margin: 0; }
 .viewer-bar p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
 .work-frame { width: 100%; height: max(700px, calc(100svh - 125px)); border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: var(--shadow); }
+@media (max-width: 860px) {
+  .learning-grid { display: block; margin-top: 27px; }
+  .learning-item { display: grid; grid-template-columns: 43px 1fr; gap: 13px; padding: 0 0 34px; }
+  .learning-item:last-child { padding-bottom: 0; }
+  .learning-number { margin: 0; }
+  .learning-item h3 { margin: 2px 0 5px; font-size: 16px; }
+  .content-panel .learning-item p { font-size: 13px; }
+  .learning-item:not(:last-child)::before { top: 49px; bottom: 17px; left: 21px; right: auto; width: 1px; height: auto; }
+  .learning-item:not(:last-child)::after { top: auto; bottom: 13px; left: 17px; right: auto; transform: rotate(135deg); }
+}
 @media (max-width: 720px) {
   .topbar { height: 59px; }
   .topbar-inner { padding: 0 17px; }
@@ -161,9 +173,6 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
   .session-list, .work-grid { grid-template-columns: 1fr; }
   .session-button { min-height: 138px; padding: 20px; }
   .session-mark { margin-bottom: 11px; }
-  .learning-grid { grid-template-columns: 1fr; margin-top: 23px; }
-  .learning-item { min-height: 0; padding: 17px 0 18px; }
-  .learning-item:last-child { padding-bottom: 0; }
   .content-panel { padding: 22px 18px; }
   .learning-panel { padding: 27px 21px 26px; }
   .content-panel .learning-intro > p:last-child { font-size: 14px; line-height: 1.75; }
