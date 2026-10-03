@@ -129,15 +129,18 @@ function classPage(classId) {
       <h1>${bdg ? "BDG 班" : "F1 班"} · 課堂作品</h1>
       <p class="lead">主題：設計並完成專屬的互動式智能小寵物。</p>
     </div>
-    <section class="content-panel" aria-labelledby="learning-title">
-      <h2 id="learning-title">這堂課，從設計走到實作</h2>
-      <p>學生從寵物角色與互動規則出發，理解生成式 AI 的應用，規劃動作、製作可操作的網頁，並透過測試與修改完成自己的作品。</p>
-      <div class="learning-grid">
-        <div class="learning-item"><b>AI 概念與判讀</b><span>辨識感知型與生成式 AI，練習檢查生成結果。</span></div>
-        <div class="learning-item"><b>系統設計思維</b><span>規劃角色特徵與互動規則，建立清楚的設計規格。</span></div>
-        <div class="learning-item"><b>${bdg ? "網頁互動邏輯" : "觸發與自動化邏輯"}</b><span>${bdg ? "把寵物動作轉化成可點按、會回應的網頁功能。" : "設計觸發條件、寵物反應與自動回應方式。"}</span></div>
-        <div class="learning-item"><b>測試與迭代</b><span>檢查動作與按鈕，具體指出問題並調整作品。</span></div>
+    <section class="content-panel learning-panel" aria-labelledby="learning-title">
+      <div class="learning-intro">
+        <p class="learning-kicker">THE LEARNING PROCESS / 課堂學習歷程</p>
+        <h2 id="learning-title">這堂課，從設計走到實作</h2>
+        <p>學生從寵物角色與互動規則出發，理解生成式 AI 的應用，規劃動作、製作可操作的網頁，並透過測試與修改完成自己的作品。</p>
       </div>
+      <ol class="learning-grid">
+        <li class="learning-item"><span class="learning-number" aria-hidden="true">01</span><div><h3>AI 概念與判讀</h3><p>辨識感知型與生成式 AI，練習檢查生成結果。</p></div></li>
+        <li class="learning-item"><span class="learning-number" aria-hidden="true">02</span><div><h3>系統設計思維</h3><p>規劃角色特徵與互動規則，建立清楚的設計規格。</p></div></li>
+        <li class="learning-item"><span class="learning-number" aria-hidden="true">03</span><div><h3>${bdg ? "網頁互動邏輯" : "觸發與自動化邏輯"}</h3><p>${bdg ? "把寵物動作轉化成可點按、會回應的網頁功能。" : "設計觸發條件、寵物反應與自動回應方式。"}</p></div></li>
+        <li class="learning-item"><span class="learning-number" aria-hidden="true">04</span><div><h3>測試與迭代</h3><p>檢查動作與按鈕，具體指出問題並調整作品。</p></div></li>
+      </ol>
     </section>
     <div class="works-head">
       <h2>學生作品</h2>

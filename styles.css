@@ -111,12 +111,19 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
 .content-panel { padding: 26px 28px; }
 .content-panel h2 { color: var(--deep); font-size: 21px; margin-bottom: 9px; }
 .content-panel p { color: #4b686c; margin-bottom: 15px; font-size: 14px; }
-.learning-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-top: 18px; }
-.learning-item { border-radius: 13px; padding: 15px; background: #f3f8f6; border: 1px solid #e2eeea; }
-.learning-item b { display: block; color: var(--deep); font-size: 13px; margin-bottom: 5px; }
-.learning-item span { display: block; color: #61777b; font-size: 12px; line-height: 1.5; }
+.learning-panel { position: relative; overflow: hidden; padding: 34px 36px 27px; }
+.learning-panel::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--wine) 0 23%, var(--gold) 23% 29%, var(--deep) 29%); }
+.content-panel .learning-kicker { margin: 0 0 10px; color: var(--wine); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+.content-panel.learning-panel h2 { margin-bottom: 12px; font-size: clamp(23px, 3vw, 30px); letter-spacing: -.025em; }
+.content-panel .learning-intro > p:last-child { max-width: 720px; margin: 0; color: #4b686c; font-size: 15px; line-height: 1.8; }
+.learning-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 34px; list-style: none; margin: 28px 0 0; padding: 0; }
+.learning-item { display: grid; grid-template-columns: 39px 1fr; gap: 11px; align-items: start; min-height: 110px; padding: 20px 0 18px; border-top: 1px solid var(--line); }
+.learning-number { color: var(--wine); font-family: Georgia, "Times New Roman", serif; font-size: 25px; line-height: 1.2; }
+.learning-item h3 { margin: 1px 0 6px; color: var(--deep); font-size: 16px; line-height: 1.4; }
+.content-panel .learning-item p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .works-head { margin: 35px 0 15px; }
-.works-head h2 { margin: 0 0 3px; font-size: 22px; color: var(--deep); }
+.works-head h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 3px; font-size: 22px; color: var(--deep); }
+.works-head h2::before { content: ""; width: 3px; height: 23px; border-radius: 2px; background: var(--wine); }
 .works-head p { color: var(--muted); margin: 0; font-size: 13px; }
 .work-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
 .work-card { display: block; padding: 0; overflow: hidden; width: 100%; border: 1px solid var(--line); border-radius: 18px; background: white; text-align: left; text-decoration: none; color: var(--deep); transition: transform .18s, border-color .18s, box-shadow .18s; }
@@ -124,7 +131,7 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
 .thumb iframe { position: absolute; left: 0; top: 0; width: 250%; height: 250%; border: 0; transform: scale(.4); transform-origin: top left; pointer-events: none; }
 .thumb::after { content: "點按體驗作品  ↗"; position: absolute; right: 12px; bottom: 12px; z-index: 1; border-radius: 999px; padding: 7px 11px; background: rgba(255,255,255,.93); color: var(--deep); font-size: 11px; font-weight: 800; box-shadow: 0 3px 10px #0002; }
 .work-meta { padding: 17px 19px 20px; }
-.work-meta small { color: var(--gold); font-weight: 800; letter-spacing: .07em; font-size: 11px; }
+.work-meta small { color: var(--wine); font-weight: 800; letter-spacing: .07em; font-size: 11px; }
 .work-meta strong { display: block; font-size: 20px; margin: 2px 0 3px; }
 .work-meta span { color: var(--muted); font-size: 13px; }
 .empty-panel { padding: 32px; text-align: center; color: var(--muted); }
@@ -154,8 +161,12 @@ h1 { margin-bottom: 4px; color: var(--deep); font-size: clamp(30px, 5vw, 48px); 
   .session-list, .work-grid { grid-template-columns: 1fr; }
   .session-button { min-height: 138px; padding: 20px; }
   .session-mark { margin-bottom: 11px; }
-  .learning-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .learning-grid { grid-template-columns: 1fr; margin-top: 23px; }
+  .learning-item { min-height: 0; padding: 17px 0 18px; }
+  .learning-item:last-child { padding-bottom: 0; }
   .content-panel { padding: 22px 18px; }
+  .learning-panel { padding: 27px 21px 26px; }
+  .content-panel .learning-intro > p:last-child { font-size: 14px; line-height: 1.75; }
   .login-panel { padding: 24px 20px; }
   .viewer-main { padding: 11px 8px 12px; }
   .viewer-bar { padding: 0 7px; }
