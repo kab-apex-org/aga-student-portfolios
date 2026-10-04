@@ -9,8 +9,21 @@ const COURSES = [
 ];
 
 const WORKS = {
-  ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", url: "works/ula.html" },
-  cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", url: "works/cynthia.html" }
+  ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", classId: "bdg", url: "works/ula.html" },
+  cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "bdg", url: "works/cynthia.html" },
+  jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html" },
+  eden: { name: "Eden", title: "麥當勞°", detail: "像素電子小寵物", classId: "bdg", url: "works/eden.html" },
+  evan: { name: "Evan", title: "肥仔", detail: "電子雞小寵物", classId: "bdg", url: "works/evan.html" },
+  rocco: { name: "Rocco", title: "阿尾", detail: "智能電子雞", classId: "bdg", url: "works/rocco.html" },
+  woody: { name: "Woody", title: "帥氣的狗狗", detail: "互動電子雞", classId: "bdg", url: "works/woody.html" },
+  marco: { name: "Marco", title: "小狐", detail: "智慧電子雞", classId: "bdg", url: "works/marco.html" },
+  jeremy: { name: "Jeremy", title: "大帥貓", detail: "像素小寵物", classId: "f1", url: "works/jeremy.html" },
+  cody: { name: "Cody", title: "大笨蛋", detail: "智慧電子雞", classId: "f1", url: "works/cody.html" },
+  johnny: { name: "Johnny", title: "精緻像素電子雞", detail: "互動版", classId: "f1", url: "works/johnny.html" },
+  lottie: { name: "Lottie", title: "笙笙", detail: "房間電子雞", classId: "f1", url: "works/lottie.html" },
+  marcus: { name: "Marcus", title: "多米加", detail: "復古像素寵物", classId: "f1", url: "works/marcus.html" },
+  william: { name: "William", title: "小甲", detail: "電子雞", classId: "f1", url: "works/william.html" },
+  ian: { name: "Ian", title: "Moly", detail: "電子雞", classId: "f1", url: "works/ian.html" }
 };
 
 const LOGIN_HASH = "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5";
@@ -98,7 +111,7 @@ function sessions() {
       <a class="session-button" href="#/class/f1">
         <span class="session-mark">F</span>
         <strong>F1 班</strong>
-        <small>2026 年 10 月 4 日 · 查看課堂內容</small>
+        <small>2026 年 10 月 4 日 · 查看課堂與作品</small>
         <span class="chevron" aria-hidden="true">›</span>
       </a>
     </nav>
@@ -110,7 +123,7 @@ function workCard(key) {
   return `
     <a class="work-card" href="#/work/${key}" aria-label="觀看 ${work.name} 的${work.title}互動作品">
       <div class="thumb">
-        <iframe src="${work.url}" title="${work.name} 作品縮圖" tabindex="-1" aria-hidden="true" loading="lazy" sandbox="allow-scripts"></iframe>
+        <img src="assets/thumbs/${key}.png" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">
       </div>
       <div class="work-meta">
         <small>STUDENT WORK · INTERACTIVE WEBPAGE</small>
@@ -122,6 +135,7 @@ function workCard(key) {
 
 function classPage(classId) {
   const bdg = classId === "bdg";
+  const classWorks = Object.keys(WORKS).filter(key => WORKS[key].classId === classId);
   return shell(`
     <a class="back" href="#/sessions">← 返回體驗課班級</a>
     <div class="page-head">
@@ -144,9 +158,9 @@ function classPage(classId) {
     </section>
     <div class="works-head">
       <h2>學生作品</h2>
-      <p>${bdg ? "點按作品縮圖，即可開啟並親自操作學生設計的電子寵物。" : "這個班級的作品將於完成後陸續上架。"}</p>
+      <p>${classWorks.length} 件互動作品 · 點按縮圖，即可開啟並親自操作學生設計的電子寵物。</p>
     </div>
-    ${bdg ? `<div class="work-grid">${workCard("ula")}${workCard("cynthia")}</div>` : `<div class="empty-panel"><span class="empty-icon">✦</span><strong>作品即將上架</strong><span>目前尚無 F1 班作品可展示。</span></div>`}
+    <div class="work-grid">${classWorks.map(workCard).join("")}</div>
   `);
 }
 
@@ -154,7 +168,7 @@ function workPage(key) {
   const work = WORKS[key];
   return shell(`
     <div class="viewer-bar">
-      <div><a class="back" href="#/class/bdg">← 返回 BDG 班作品</a><h1>${work.name} · ${work.title}</h1><p>點按作品中的按鈕，與寵物互動。</p></div>
+      <div><a class="back" href="#/class/${work.classId}">← 返回 ${work.classId === "bdg" ? "BDG" : "F1"} 班作品</a><h1>${work.name} · ${work.title}</h1><p>點按作品中的按鈕，與寵物互動。</p></div>
     </div>
     <iframe class="work-frame" src="${work.url}" title="${work.name} 的${work.title}互動作品" sandbox="allow-scripts"></iframe>
   `, true);

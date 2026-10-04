@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#151329">
+<title>多米加 × Marcus｜復古像素寵物</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;min-height:100%;font-family:"Courier New",monospace;background:#0e0c18;color:#fff}
+  body{display:flex;justify-content:center}
+  button{font:inherit}
+  .app{width:100%;max-width:560px;min-height:100vh;background:#17142a;overflow:hidden;position:relative}
+  .screen{min-height:100vh;padding:18px 16px 22px}
+  .start{display:flex;align-items:center;justify-content:center;text-align:center;background:
+    radial-gradient(circle at 50% 35%,#33294d 0,#17142a 42%,#0e0c18 100%)}
+  .start-card{width:min(94%,430px);border:4px solid #f4c95d;background:#211c36;box-shadow:8px 8px 0 #08070e;padding:24px 18px}
+  .logo{font-size:26px;color:#f4c95d;text-shadow:3px 3px 0 #7a4c8b;letter-spacing:2px}
+  .subtitle{color:#b7b0ca;font-size:14px;margin:10px 0 20px}
+  .start-pet{height:180px;display:flex;align-items:center;justify-content:center;position:relative}
+  .pixel-alien{position:relative;width:150px;height:150px;image-rendering:pixelated}
+  .alien-head{
+    position:absolute;left:10px;top:5px;width:130px;height:104px;
+    background:linear-gradient(145deg,#f05a52 0%,#d9384a 58%,#a92543 100%);
+    border:6px solid #531d3a;
+    border-radius:44% 48% 40% 42%;
+    box-shadow:inset 7px 7px 0 rgba(255,180,150,.22), inset -7px -7px 0 rgba(73,16,47,.22);
+  }
+  .alien-head:before{
+    content:"";position:absolute;left:5px;top:-27px;width:34px;height:38px;
+    background:linear-gradient(135deg,#f05a52 0%,#c72f45 100%);
+    border:6px solid #531d3a;
+    border-radius:65% 35% 55% 25%;
+    transform:rotate(-24deg);
+    box-shadow:inset 5px 4px 0 rgba(255,180,150,.18);
+  }
+  .alien-head:after{
+    content:"";position:absolute;right:5px;top:-27px;width:34px;height:38px;
+    background:linear-gradient(225deg,#f05a52 0%,#c72f45 100%);
+    border:6px solid #531d3a;
+    border-radius:35% 65% 25% 55%;
+    transform:rotate(24deg);
+    box-shadow:inset -5px 4px 0 rgba(255,180,150,.18);
+  }
+  .eye1,.eye2{
+    position:absolute;top:34px;width:28px;height:35px;background:#fff4dc;
+    border:5px solid #4c1b3b;border-radius:48%;
+    box-shadow:inset 0 -7px 0 #d8b9bd;
+  }
+  .eye1{left:22px}.eye2{right:22px}
+  .eye1:after,.eye2:after{
+    content:"";position:absolute;left:8px;top:7px;width:8px;height:14px;
+    background:#271b3a;box-shadow:2px 0 0 #6b2a54;
+  }
+  .mouth{
+    position:absolute;left:50%;top:75px;transform:translateX(-50%);
+    width:28px;height:10px;background:#5e1738;border:3px solid #43152f;
+    border-top:0;border-radius:0 0 10px 10px;
+  }
+  .alien-body{
+    position:absolute;left:43px;top:91px;width:66px;height:47px;
+    background:linear-gradient(#d93a4a,#b62943);
+    border:6px solid #531d3a;border-radius:20px 20px 13px 13px;
+    box-shadow:inset 5px 5px 0 rgba(255,180,150,.16);
+  }
+  .alien-body:after{
+    content:"★";position:absolute;left:50%;top:7px;transform:translateX(-50%);
+    color:#f4c95d;font-size:17px;text-shadow:2px 2px #6b2947;
+  }
+  .hand{
+    position:absolute;top:16px;width:27px;height:24px;
+    background:#e0444e;border:5px solid #531d3a;border-radius:8px;
+    z-index:2;
+    box-shadow:inset 3px 3px 0 rgba(255,180,150,.16);
+  }
+  .hand:after{
+    content:"";position:absolute;top:6px;width:8px;height:7px;
+    background:#f05a52;border-top:3px solid #531d3a;
+  }
+  .hand-left{left:-5px;transform:rotate(12deg)}
+  .hand-left:after{right:-5px}
+  .hand-right{right:-5px;transform:rotate(-12deg)}
+  .hand-right:after{left:-5px}
+
+  .foot1,.foot2{
+    position:absolute;top:126px;width:35px;height:17px;background:#982840;
+    border:5px solid #531d3a;border-radius:9px 9px 5px 5px;
+  }
+  .foot1{left:37px}.foot2{right:37px}
+  .start-pet .pixel-alien{transform:scale(1.08)}
+  .start-pet .alien-head{box-shadow:inset 7px 7px 0 rgba(255,180,150,.22),inset -7px -7px 0 rgba(73,16,47,.22)}
+  .hidden{display:none!important}
+
+  .top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #3a3151;padding:4px 2px 12px}
+  .name{font-size:20px;color:#f4c95d}.owner{font-size:12px;color:#a9a2bb}
+  .status{margin:12px 0;background:#211c36;border:3px solid #4a3e62;padding:10px 12px;min-height:46px;color:#f2ecff;font-size:13px}
+  .stage{height:410px;border:4px solid #514466;background:
+    linear-gradient(#282243 0 72%,#30263e 72% 73%,#1e1930 73% 100%);
+    position:relative;overflow:hidden;box-shadow:inset 0 0 0 4px #161225}
+  .stars{position:absolute;inset:0;pointer-events:none;opacity:.75;background:
+    radial-gradient(circle at 12% 16%,#f4c95d 0 2px,transparent 3px),
+    radial-gradient(circle at 83% 12%,#b6e3ff 0 2px,transparent 3px),
+    radial-gradient(circle at 67% 27%,#f4c95d 0 1px,transparent 2px),
+    radial-gradient(circle at 27% 33%,#b6e3ff 0 1px,transparent 2px)}
+  .floor-line{position:absolute;left:0;right:0;bottom:95px;height:4px;background:#54445d}
+  .pet-wrap{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);width:190px;height:190px;transition:.25s}
+  .pet{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:160px;height:160px}
+  .pet .alien-head{left:12px;top:0;width:136px;height:108px}
+  .pet .alien-body{left:46px;top:93px;width:68px;height:50px}
+  .pet .foot1{left:41px;top:130px}.pet .foot2{right:41px;top:130px}
+  .pet .eye1{left:35px}.pet .eye2{right:35px}.pet .mouth{left:80px}
+  .pet.idle{animation:bob 1.5s steps(3,end) infinite}
+  @keyframes bob{50%{transform:translateX(-50%) translateY(-5px)}}
+  .pet.sleep{transform:translateX(-50%) rotate(90deg) scale(.82);transform-origin:70% 80%;bottom:-2px}
+  .pet.sleep .alien-head{filter:brightness(.9)}
+  .pet.sleep .eye1,.pet.sleep .eye2{height:4px;top:44px}
+  .pet.eat{animation:eat .35s steps(2,end) infinite}
+  @keyframes eat{50%{transform:translateX(-50%) translateY(5px) scale(.97)}}
+  .pet.down{transform:translateX(-50%) scaleY(.48) scaleX(1.35);bottom:3px;transform-origin:center bottom}
+  .zzz{position:absolute;left:118px;top:55px;color:#f4c95d;font-weight:bold;font-size:28px;text-shadow:3px 3px #6b3f76;animation:float 1.3s steps(3,end) infinite;display:none}
+  .sleeping .zzz{display:block}
+  @keyframes float{50%{transform:translateY(-18px);opacity:.55}}
+  .food{position:absolute;left:50%;bottom:74px;transform:translateX(-50%);font-size:48px;display:none}
+  .eating .food{display:block;animation:food .7s steps(2,end) infinite}
+  @keyframes food{50%{transform:translateX(-50%) scale(.85)}}
+  .thought{position:absolute;top:18px;left:50%;transform:translateX(-50%);background:#f7f0d8;color:#2a1c34;border:4px solid #5a4563;padding:7px 11px;font-weight:bold;font-size:13px;display:none;white-space:nowrap}
+  .hungry .thought,.tired .thought{display:block}
+  .tired .thought:after{content:"很累…"}
+  .hungry .thought:after{content:"肚子餓…"}
+  .hungry .thought,.tired .thought{font-size:0}
+  .hungry .thought:after,.tired .thought:after{font-size:13px}
+  .bowl{position:absolute;bottom:73px;left:50%;transform:translateX(-50%);font-size:30px;display:none}
+  .eating .bowl{display:block}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .action{min-height:68px;border:3px solid #6d5b7f;background:#2a2340;color:#fff;font-weight:bold;font-size:18px;box-shadow:5px 5px 0 #0a0910;cursor:pointer}
+  .action small{display:block;color:#aaa0bd;font-size:10px;margin-top:3px}
+  .action.sleep-btn{border-color:#8f6ac2}.action.eat-btn{border-color:#d58a4e}.action.down-btn{border-color:#5fa69b}.action.reset-btn{border-color:#d05b73}
+  .timers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .timer{background:#211c36;border:2px solid #3f3556;padding:8px;font-size:11px;color:#bdb5cf;text-align:center}
+  .timer strong{display:block;color:#f4c95d;font-size:14px;margin-top:3px}
+  .story{margin-top:18px;border-top:3px dashed #4a3e62;padding-top:14px}
+  .story h2{font-size:15px;color:#f4c95d;margin:0 0 9px}
+  .frames{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .frame{background:#211c36;border:2px solid #403553;padding:5px;text-align:center;font-size:9px;color:#bcb4ca}
+  .mini{height:70px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .mini .pixel-alien{transform:scale(.42);transform-origin:center}
+  .legend{margin-top:8px;color:#888099;font-size:10px;line-height:1.5}
+  .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(80px);background:#f4c95d;color:#23192d;border:3px solid #5e3b69;padding:9px 13px;font-weight:bold;z-index:20;transition:.2s;box-shadow:4px 4px #08070e}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  @media(max-width:380px){
+    .stage{height:365px}.action{font-size:16px}.logo{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <section id="startScreen" class="screen start">
+    <div class="start-card">
+      <div class="logo">多米加 // DOMIGA</div>
+      <div class="subtitle">Marcus 的懶惰紅色外星小寵物<br>復古彩色像素電子寵物</div>
+      <div class="start-pet">
+        <div class="pixel-alien">
+          <div class="alien-head"><i class="eye1"></i><i class="eye2"></i><i class="mouth"></i></div>
+          <div class="alien-body"><i class="hand hand-left"></i><i class="hand hand-right"></i></div><div class="foot1"></div><div class="foot2"></div>
+        </div>
+      </div>
+      <button class="primary" id="continueBtn">▶ 繼續，開始玩</button>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="screen hidden">
+    <header class="top">
+      <div class="name">多米加</div>
+      <div class="owner">主人：Marcus</div>
+    </header>
+    <div id="status" class="status">多米加正在發呆……</div>
+
+    <div id="stage" class="stage">
+      <div class="stars"></div>
+      <div class="thought"></div>
+      <div class="floor-line"></div>
+      <div id="petWrap" class="pet-wrap">
+        <div id="pet" class="pet idle">
+          <div class="alien-head"><i class="eye1"></i><i class="eye2"></i><i class="mouth"></i></div>
+          <div class="alien-body"><i class="hand hand-left"></i><i class="hand hand-right"></i></div><div class="foot1"></div><div class="foot2"></div>
+        </div>
+        <div class="zzz">Z<br>ZZ</div>
+      </div>
+      <div class="bowl">🍚</div>
+      <div class="food">🍙</div>
+    </div>
+
+    <div class="controls">
+      <button class="action sleep-btn" id="sleepBtn">💤 睡覺<small>躺下＋ZZZ</small></button>
+      <button class="action eat-btn" id="eatBtn">🍚 吃東西<small>把飯吃完</small></button>
+      <button class="action down-btn" id="downBtn">🛌 趴下<small>趴在地板上</small></button>
+      <button class="action reset-btn" id="idleBtn">👾 起身<small>回到待機</small></button>
+    </div>
+
+    <div class="timers">
+      <div class="timer">距離「肚子餓」<strong id="eatTimer">20.0 秒</strong></div>
+      <div class="timer">距離「很累」<strong id="sleepTimer">30.0 秒</strong></div>
+    </div>
+
+    <section class="story">
+      <h2>▣ 角色動作分鏡表</h2>
+      <div class="frames">
+        <div class="frame"><div class="mini"><div class="pixel-alien"><div class="alien-head"></div><div class="alien-body"></div><div class="foot1"></div><div class="foot2"></div></div></div>待機</div>
+        <div class="frame"><div class="mini"><div style="font-size:24px">🛌</div><b style="position:absolute;right:8px;top:7px;color:#f4c95d">ZZZ</b></div>睡覺</div>
+        <div class="frame"><div class="mini"><div style="font-size:25px">👾🍚</div></div>吃東西</div>
+        <div class="frame"><div class="mini"><div style="font-size:28px">〰️</div></div>趴下</div>
+      </div>
+      <div class="legend">自動需求：20 秒沒有吃東西 →「肚子餓」；30 秒沒有睡覺 →「很累」。按相應按鈕會重新計時。</div>
+    </section>
+  </section>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+(() => {
+  const start = document.getElementById('startScreen');
+  const game = document.getElementById('gameScreen');
+  const continueBtn = document.getElementById('continueBtn');
+  const pet = document.getElementById('pet');
+  const stage = document.getElementById('stage');
+  const status = document.getElementById('status');
+  const toast = document.getElementById('toast');
+  const eatTimer = document.getElementById('eatTimer');
+  const sleepTimer = document.getElementById('sleepTimer');
+
+  let started = false;
+  let lastEat = 0;
+  let lastSleep = 0;
+  let action = 'idle';
+  let eatTimeout = null;
+  let toastTimeout = null;
+
+  function msg(text) {
+    status.textContent = text;
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+
+  function resetClasses() {
+    pet.className = 'pet';
+    stage.classList.remove('sleeping','eating','hungry','tired');
+  }
+
+  function doSleep() {
+    if (!started) return;
+    action = 'sleep';
+    lastSleep = performance.now();
+    resetClasses();
+    pet.classList.add('sleep');
+    stage.classList.add('sleeping');
+    msg('多米加躺下睡覺了…… ZZZ');
+  }
+
+  function doEat() {
+    if (!started) return;
+    action = 'eat';
+    lastEat = performance.now();
+    resetClasses();
+    pet.classList.add('eat');
+    stage.classList.add('eating');
+    msg('多米加正在吃飯！');
+    clearTimeout(eatTimeout);
+    eatTimeout = setTimeout(() => {
+      if (action === 'eat') {
+        resetClasses();
+        pet.classList.add('idle');
+        action = 'idle';
+        msg('多米加把飯吃完了！');
+      }
+    }, 2600);
+  }
+
+  function doDown() {
+    if (!started) return;
+    action = 'down';
+    resetClasses();
+    pet.classList.add('down');
+    msg('多米加趴在地板上休息。');
+  }
+
+  function doIdle() {
+    if (!started) return;
+    action = 'idle';
+    resetClasses();
+    pet.classList.add('idle');
+    msg('多米加起身了，繼續發呆。');
+  }
+
+  continueBtn.addEventListener('click', () => {
+    started = true;
+    start.classList.add('hidden');
+    game.classList.remove('hidden');
+    lastEat = performance.now();
+    lastSleep = performance.now();
+    msg('遊戲開始！照顧好多米加喔。');
+  });
+
+  document.getElementById('sleepBtn').addEventListener('click', doSleep);
+  document.getElementById('eatBtn').addEventListener('click', doEat);
+  document.getElementById('downBtn').addEventListener('click', doDown);
+  document.getElementById('idleBtn').addEventListener('click', doIdle);
+
+  setInterval(() => {
+    if (!started) return;
+    const now = performance.now();
+    const eatLeft = Math.max(0, 20 - (now - lastEat) / 1000);
+    const sleepLeft = Math.max(0, 30 - (now - lastSleep) / 1000);
+    eatTimer.textContent = eatLeft.toFixed(1) + ' 秒';
+    sleepTimer.textContent = sleepLeft.toFixed(1) + ' 秒';
+
+    if (eatLeft <= 0 && !stage.classList.contains('eating')) {
+      stage.classList.add('hungry');
+      if (!stage.classList.contains('tired')) msg('多米加說：肚子餓……');
+    } else if (eatLeft > 0) {
+      stage.classList.remove('hungry');
+    }
+
+    if (sleepLeft <= 0 && !stage.classList.contains('sleeping')) {
+      stage.classList.add('tired');
+      if (!stage.classList.contains('hungry')) msg('多米加說：很累……');
+    } else if (sleepLeft > 0) {
+      stage.classList.remove('tired');
+    }
+  }, 100);
+})();
+</script>
+</body>
+</html>
