@@ -11,12 +11,12 @@ const COURSES = [
 const WORKS = {
   ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", classId: "bdg", url: "works/ula.html" },
   cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "f1", url: "works/cynthia.html" },
-  jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html?v=20261004-performance1" },
+  jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html" },
   eden: { name: "Eden", title: "麥當勞°", detail: "像素電子小寵物", classId: "bdg", url: "works/eden.html" },
   evan: { name: "Evan", title: "肥仔", detail: "電子雞小寵物", classId: "bdg", url: "works/evan.html" },
   rocco: { name: "Rocco", title: "阿尾", detail: "智能電子雞", classId: "bdg", url: "works/rocco.html" },
-  woody: { name: "Woody", title: "帥氣的狗狗", detail: "互動電子雞", classId: "bdg", url: "works/woody.html?v=20261004-performance1" },
-  marco: { name: "Marco", title: "小狐", detail: "智慧電子雞", classId: "bdg", url: "works/marco.html?v=20261004-performance1" },
+  woody: { name: "Woody", title: "帥氣的狗狗", detail: "互動電子雞", classId: "bdg", url: "works/woody.html" },
+  marco: { name: "Marco", title: "小狐", detail: "智慧電子雞", classId: "bdg", url: "works/marco.html" },
   jeremy: { name: "Jeremy", title: "大帥貓", detail: "像素小寵物", classId: "f1", url: "works/jeremy.html" },
   cody: { name: "Cody", title: "大笨蛋", detail: "智慧電子雞", classId: "f1", url: "works/cody.html" },
   johnny: { name: "Johnny", title: "精緻像素電子雞", detail: "互動版", classId: "f1", url: "works/johnny.html" },
@@ -28,6 +28,7 @@ const WORKS = {
 
 const LOGIN_HASH = "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5";
 const AUTH_KEY = "aga_experience_access";
+const ASSET_VERSION = "20261004-assets2";
 const app = document.getElementById("app");
 
 function shell(content, viewer = false) {
@@ -123,7 +124,7 @@ function workCard(key) {
   return `
     <a class="work-card" href="#/work/${key}" aria-label="觀看 ${work.name} 的${work.title}互動作品">
       <div class="thumb">
-        <img src="assets/thumbs/${key}.png" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">
+        <img src="assets/thumbs/${key}.webp" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">
       </div>
       <div class="work-meta">
         <small>STUDENT WORK · INTERACTIVE WEBPAGE</small>
@@ -166,11 +167,13 @@ function classPage(classId) {
 
 function workPage(key) {
   const work = WORKS[key];
+  const workUrl = new URL(work.url, location.href);
+  workUrl.searchParams.set("v", ASSET_VERSION);
   return shell(`
     <div class="viewer-bar">
       <div><a class="back" href="#/class/${work.classId}">← 返回 ${work.classId === "bdg" ? "BDG" : "F1"} 班作品</a><h1>${work.name} · ${work.title}</h1><p>點按作品中的按鈕，與寵物互動。</p></div>
     </div>
-    <iframe class="work-frame" src="${work.url}" title="${work.name} 的${work.title}互動作品" sandbox="allow-scripts"></iframe>
+    <iframe class="work-frame" src="${workUrl.href}" title="${work.name} 的${work.title}互動作品" sandbox="allow-scripts"></iframe>
   `, true);
 }
 
