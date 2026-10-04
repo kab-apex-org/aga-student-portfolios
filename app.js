@@ -10,7 +10,7 @@ const COURSES = [
 
 const WORKS = {
   ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", classId: "bdg", url: "works/ula.html" },
-  cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "bdg", url: "works/cynthia.html" },
+  cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "f1", url: "works/cynthia.html" },
   jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html" },
   eden: { name: "Eden", title: "麥當勞°", detail: "像素電子小寵物", classId: "bdg", url: "works/eden.html" },
   evan: { name: "Evan", title: "肥仔", detail: "電子雞小寵物", classId: "bdg", url: "works/evan.html" },
