@@ -9,6 +9,7 @@ const COURSES = [
 ];
 
 const WORKS = {
+  jacko: { name: "Jacko", title: "小龍的天空島", detail: "拖曳魔法球，與小龍互動", classId: "bdg", url: "jacko-dragon/index.html" },
   ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", classId: "bdg", url: "works/ula.html" },
   cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "f1", url: "works/cynthia.html" },
   jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html" },
@@ -28,7 +29,7 @@ const WORKS = {
 
 const LOGIN_HASH = "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5";
 const AUTH_KEY = "aga_experience_access";
-const ASSET_VERSION = "20261004-assets2";
+const ASSET_VERSION = "20261107-jacko1";
 const app = document.getElementById("app");
 
 function shell(content, viewer = false) {
@@ -124,7 +125,7 @@ function workCard(key) {
   return `
     <a class="work-card" href="#/work/${key}" aria-label="觀看 ${work.name} 的${work.title}互動作品">
       <div class="thumb">
-        <img src="assets/thumbs/${key}.webp" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">
+        ${key === "jacko" ? '<div role="img" aria-label="Jacko 的小龍" style="width:100%;height:100%;min-height:180px;background:#14243c url(jacko-dragon/sprites.webp) 0 0 / 300% 200% no-repeat"></div>' : `<img src="assets/thumbs/${key}.webp" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">`}
       </div>
       <div class="work-meta">
         <small>STUDENT WORK · INTERACTIVE WEBPAGE</small>
