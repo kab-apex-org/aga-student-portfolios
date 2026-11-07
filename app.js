@@ -1,6 +1,6 @@
 const COURSES = [
   { id: "experience", name: "AI 體驗課", english: "AI Discovery Experience", open: true },
-  { id: "bdg", name: "BDG 探索實踐班", english: "Explore & Practice" },
+  { id: "bdg", name: "BDG 探索實踐班", english: "Explore & Practice", open: true },
   { id: "f1f2", name: "F1-F2 AI 基礎認證班", english: "AI Foundations" },
   { id: "a1a2", name: "A1-A2 AI 應用認證班", english: "AI Applications" },
   { id: "e1e2", name: "E1-E2 AI 工程師認證班", english: "AI Engineering" },
@@ -29,7 +29,7 @@ const WORKS = {
 
 const LOGIN_HASH = "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5";
 const AUTH_KEY = "aga_experience_access";
-const ASSET_VERSION = "20261107-jacko1";
+const ASSET_VERSION = "20261107-bdg-open";
 const app = document.getElementById("app");
 
 function shell(content, viewer = false) {
@@ -50,7 +50,7 @@ function shell(content, viewer = false) {
 
 function home() {
   const courses = COURSES.map((course, i) => `
-    <a class="course-button ${course.open ? "featured" : ""}" href="#/login/${course.id}">
+    <a class="course-button ${course.open ? "featured" : ""}" href="${course.id === "bdg" ? "#/class/bdg" : "#/login/" + course.id}">
       <span class="course-index">${String(i + 1).padStart(2, "0")}</span>
       <span><span class="course-title">${course.name}</span><span class="course-subtitle">${course.english}</span></span>
       <span class="pill ${course.open ? "" : "dim"}">${course.open ? "作品開放中" : "登入查看"}</span>
