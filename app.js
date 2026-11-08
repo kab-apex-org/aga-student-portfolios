@@ -9,7 +9,7 @@ const COURSES = [
 ];
 
 const WORKS = {
-  jacko: { name: "Jacko", title: "小龍的天空島", detail: "拖曳魔法球，與小龍互動", classId: "bdg", url: "jacko-dragon/index.html" },
+  jacko: { name: "Jacko", title: "小龍的天空島", detail: "拖曳魔法球，與小龍互動", classId: "bdg-course", url: "jacko-dragon/index.html" },
   ula: { name: "Ula", title: "小章魚", detail: "皮皮的電子小寵物", classId: "bdg", url: "works/ula.html" },
   cynthia: { name: "Cynthia", title: "阿頭", detail: "安安的電子雞", classId: "f1", url: "works/cynthia.html" },
   jerry: { name: "Jerry", title: "阿星", detail: "智能電子雞", classId: "bdg", url: "works/jerry.html" },
@@ -27,9 +27,12 @@ const WORKS = {
   ian: { name: "Ian", title: "Moly", detail: "電子雞", classId: "f1", url: "works/ian.html" }
 };
 
-const LOGIN_HASH = "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5";
-const AUTH_KEY = "aga_experience_access";
-const ASSET_VERSION = "20261107-bdg-open";
+const LOGIN_HASHES = {
+  experience: "9580c3cc32b02435dcf88f9d7f6395339570ac2a008d1015a307919f04f50ef5",
+  bdg: "75cdc9491652793318c7c884bcc75e3acd6dfad0d514827f7ff432fb1708bc85"
+};
+const AUTH_KEYS = { experience: "aga_experience_access", bdg: "aga_bdg_access" };
+const ASSET_VERSION = "20261108-bdg-separate";
 const app = document.getElementById("app");
 
 function shell(content, viewer = false) {
@@ -50,7 +53,7 @@ function shell(content, viewer = false) {
 
 function home() {
   const courses = COURSES.map((course, i) => `
-    <a class="course-button ${course.open ? "featured" : ""}" href="${course.id === "bdg" ? "#/class/bdg" : "#/login/" + course.id}">
+    <a class="course-button ${course.open ? "featured" : ""}" href="#/login/${course.id}">
       <span class="course-index">${String(i + 1).padStart(2, "0")}</span>
       <span><span class="course-title">${course.name}</span><span class="course-subtitle">${course.english}</span></span>
       <span class="pill ${course.open ? "" : "dim"}">${course.open ? "作品開放中" : "登入查看"}</span>
@@ -166,13 +169,30 @@ function classPage(classId) {
   `);
 }
 
+function bdgCoursePage() {
+  const classWorks = Object.keys(WORKS).filter(key => WORKS[key].classId === "bdg-course");
+  return shell(`
+    <a class="back" href="#/">← 返回班級列表</a>
+    <div class="page-head">
+      <p class="eyebrow">Explore & Practice</p>
+      <h1>BDG 探索實踐班 · 學生作品</h1>
+      <p class="lead">探索角色、場景與互動邏輯，將創意製作成可親自操作的網頁作品。</p>
+    </div>
+    <div class="works-head">
+      <h2>學生作品</h2>
+      <p>${classWorks.length} 件互動作品 · 點按縮圖，即可開啟並親自體驗。</p>
+    </div>
+    <div class="work-grid">${classWorks.map(workCard).join("")}</div>
+  `);
+}
+
 function workPage(key) {
   const work = WORKS[key];
   const workUrl = new URL(work.url, location.href);
   workUrl.searchParams.set("v", ASSET_VERSION);
   return shell(`
     <div class="viewer-bar">
-      <div><a class="back" href="#/class/${work.classId}">← 返回 ${work.classId === "bdg" ? "BDG" : "F1"} 班作品</a><h1>${work.name} · ${work.title}</h1><p>點按作品中的按鈕，與寵物互動。</p></div>
+      <div><a class="back" href="${work.classId === "bdg-course" ? "#/course/bdg" : "#/class/" + work.classId}">← 返回 ${work.classId === "bdg-course" ? "BDG 探索實踐班" : work.classId === "bdg" ? "BDG" : "F1"} 作品</a><h1>${work.name} · ${work.title}</h1><p>${work.classId === "bdg-course" ? "拖曳魔法球，與小龍互動。" : "點按作品中的按鈕，與寵物互動。"}</p></div>
     </div>
     <iframe class="work-frame" src="${workUrl.href}" title="${work.name} 的${work.title}互動作品" sandbox="allow-scripts"></iframe>
   `, true);
@@ -184,8 +204,8 @@ async function digest(value) {
   return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function isAuthorized() {
-  return sessionStorage.getItem(AUTH_KEY) === "yes";
+function isAuthorized(courseId) {
+  return sessionStorage.getItem(AUTH_KEYS[courseId]) === "yes";
 }
 
 function render() {
@@ -195,14 +215,17 @@ function render() {
   } else if (parts[0] === "login") {
     const course = COURSES.find(item => item.id === parts[1]);
     app.innerHTML = course ? login(course) : home();
-  } else if (parts[0] === "sessions" || parts[0] === "class" || parts[0] === "work") {
-    if (!isAuthorized()) {
-      location.replace("#/login/experience");
+  } else if (["sessions", "class", "course", "work"].includes(parts[0])) {
+    const work = parts[0] === "work" ? WORKS[parts[1]] : null;
+    const courseId = parts[0] === "course" || (work && work.classId === "bdg-course") ? "bdg" : "experience";
+    if (!isAuthorized(courseId)) {
+      location.replace("#/login/" + courseId);
       return;
     }
     if (parts[0] === "sessions") app.innerHTML = sessions();
     else if (parts[0] === "class" && ["bdg", "f1"].includes(parts[1])) app.innerHTML = classPage(parts[1]);
-    else if (parts[0] === "work" && WORKS[parts[1]]) app.innerHTML = workPage(parts[1]);
+    else if (parts[0] === "course" && parts[1] === "bdg") app.innerHTML = bdgCoursePage();
+    else if (work) app.innerHTML = workPage(parts[1]);
     else app.innerHTML = home();
   } else {
     app.innerHTML = home();
@@ -217,15 +240,16 @@ app.addEventListener("submit", async event => {
   const message = form.querySelector("#form-message");
   const username = form.elements.username.value.trim();
   const password = form.elements.password.value;
+  const courseId = form.dataset.course;
   message.textContent = "";
-  if (form.dataset.course !== "experience") {
+  if (!LOGIN_HASHES[courseId]) {
     message.textContent = "此班級作品集目前尚未開放。";
     return;
   }
   try {
-    if (await digest(`${username}:${password}`) === LOGIN_HASH) {
-      sessionStorage.setItem(AUTH_KEY, "yes");
-      location.hash = "#/sessions";
+    if (await digest(`${username}:${password}`) === LOGIN_HASHES[courseId]) {
+      sessionStorage.setItem(AUTH_KEYS[courseId], "yes");
+      location.hash = courseId === "bdg" ? "#/course/bdg" : "#/sessions";
     } else {
       message.textContent = "帳號或密碼不正確，請再試一次。";
     }
