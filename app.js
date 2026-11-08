@@ -128,7 +128,7 @@ function workCard(key) {
   return `
     <a class="work-card" href="#/work/${key}" aria-label="觀看 ${work.name} 的${work.title}互動作品">
       <div class="thumb">
-        ${key === "jacko" ? '<div role="img" aria-label="Jacko 的小龍" style="width:100%;height:100%;min-height:180px;background:#14243c url(jacko-dragon/sprites.webp) 0 0 / 300% 200% no-repeat"></div>' : `<img src="assets/thumbs/${key}.webp" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">`}
+        ${key === "jacko" ? '<div class="jacko-thumb"><div class="jacko-thumb-sprite" role="img" aria-label="Jacko 的小龍"></div></div>' : `<img src="assets/thumbs/${key}.webp" alt="${work.name} 的${work.title}作品畫面" loading="lazy" decoding="async">`}
       </div>
       <div class="work-meta">
         <small>STUDENT WORK · INTERACTIVE WEBPAGE</small>
